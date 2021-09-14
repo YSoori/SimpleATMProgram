@@ -43,6 +43,7 @@ public class Account {
 		int result = this.debit(pw, money);
 		if(result!=0) {
 			sendAcc.credit(money);
+			System.out.println(money+"원 송금되었습니다.");
 			return true;
 		}
 		return false;
