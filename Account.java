@@ -1,12 +1,10 @@
-package C0901_Practice_Acc;
-
 public class Account {
-	String acc, name, pw; // °èÁÂ¹øÈ£, ÀÌ¸§,ºñ¹Ğ¹øÈ£
-	int nowMoney, money=0; //ÀÜ°í, ÀÔÃâ±İ¿¡ »ç¿ëÇÒ µ·
-	int minusLine; //¸¶ÀÌ³Ê½º ÅëÀå
+	String acc, name, pw; // ê³„ì¢Œë²ˆí˜¸, ì´ë¦„,ë¹„ë°€ë²ˆí˜¸
+	int nowMoney, money=0; //ì”ê³ , ì…ì¶œê¸ˆì— ì‚¬ìš©í•  ëˆ
+	int minusLine; //ë§ˆì´ë„ˆìŠ¤ í†µì¥
 	
 	
-	//»ı¼ºÀÚ °èÁÂ¹øÈ£, ÀÌ¸§, ºñ¹Ğ¹øÈ£, ±İ¾×À» ÀÔ·Â¹Ş°í ÃÊ±âÈ­¸¦ ÇÔ.
+	//ìƒì„±ì ê³„ì¢Œë²ˆí˜¸, ì´ë¦„, ë¹„ë°€ë²ˆí˜¸, ê¸ˆì•¡ì„ ì…ë ¥ë°›ê³  ì´ˆê¸°í™”ë¥¼ í•¨.
 	public Account(String acc, String name, String pw, int nowMoney) {
 		this.acc = acc;
 		this.name = name;
@@ -14,33 +12,33 @@ public class Account {
 		this.nowMoney = nowMoney;
 	}
 	
-	//»ı¼ºÀÚ ´ÙÇü¼º ±İ¾×À» ÀÔ·Â¹ŞÁö ¾ÊÀ¸¸é ±İ¾×À» 0À¸·Î ¸®ÅÏÇÑ´Ù.
+	//ìƒì„±ì ë‹¤í˜•ì„± ê¸ˆì•¡ì„ ì…ë ¥ë°›ì§€ ì•Šìœ¼ë©´ ê¸ˆì•¡ì„ 0ìœ¼ë¡œ ë¦¬í„´í•œë‹¤.
 	public Account(String acc, String name, String pw) {
 		this(acc, name, pw, 0);
 	}
 	
-	//ÀÔ±İ ¸Ş¼Òµå
+	//ì…ê¸ˆ ë©”ì†Œë“œ
 	public int credit(int money) {
 		return this.nowMoney+=money; 
 	}
 	
-	//Ãâ±İ ¸Ş¼Òµå, ºñ¹Ğ¹øÈ£¿Í º¸³¾±İ¾×À» ¸Å°³º¯¼ö·Î ¹Ş°í È®ÀÎ ÈÄ Ãâ±İ ½ÇÇà or ½ÇÆĞÃ³¸®.
+	//ì¶œê¸ˆ ë©”ì†Œë“œ, ë¹„ë°€ë²ˆí˜¸ì™€ ë³´ë‚¼ê¸ˆì•¡ì„ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ê³  í™•ì¸ í›„ ì¶œê¸ˆ ì‹¤í–‰ or ì‹¤íŒ¨ì²˜ë¦¬.
 	public int debit(String pw, int money) {
 		if(this.pw.equals(pw)) {
 			if(this.nowMoney-money>=0) {
 				return this.nowMoney-=money;
 			}else {
-				System.out.println("ÀÜ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
+				System.out.println("ì”ì•¡ì´ ë¶€ì¡±í•©ë‹ˆë‹¤.");
 			}
 		}else {
-			System.out.println("Àß¸øµÈ ºñ¹Ğ¹øÈ£ ÀÔ´Ï´Ù.");
+			System.out.println("ì˜ëª»ëœ ë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤.");
 		}
 		
 		return 0;
 	}
 	
-	//¼Û±İ ¸Ş¼Òµå, »ó´ë¹æ°èÁÂ, ºñ¹Ğ¹øÈ£, º¸³¾±İ¾×À» ¸Å°³º¯¼ö·Î ¹Ş¾Æ¿È
-	//»ó´ë¹æ°èÁÂ¿Í ºñ¹Ğ¹øÈ£ È®ÀÎ ÈÄ ¸Ş¼Òµå ½ÇÇà or ½ÇÆĞÃ³¸®
+	//ì†¡ê¸ˆ ë©”ì†Œë“œ, ìƒëŒ€ë°©ê³„ì¢Œ, ë¹„ë°€ë²ˆí˜¸, ë³´ë‚¼ê¸ˆì•¡ì„ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ì•„ì˜´
+	//ìƒëŒ€ë°©ê³„ì¢Œì™€ ë¹„ë°€ë²ˆí˜¸ í™•ì¸ í›„ ë©”ì†Œë“œ ì‹¤í–‰ or ì‹¤íŒ¨ì²˜ë¦¬
 	public boolean send(Account sendAcc, String pw, int money) {
 		int result = this.debit(pw, money);
 		if(result!=0) {
@@ -50,12 +48,12 @@ public class Account {
 		return false;
 	}
 	
-	//ÀÜ°í¸¦ º¸¿©ÁÖ´Â ¸Ş¼Òµå
+	//ì”ê³ ë¥¼ ë³´ì—¬ì£¼ëŠ” ë©”ì†Œë“œ
 	public void showMoney(String pw) {
 		if(this.pw.equals(pw)) {
-			System.out.println(this.name+"´ÔÀÇ ÀÜ°í´Â"+this.nowMoney+"¿ø ÀÔ´Ï´Ù." );
+			System.out.println(this.name+"ë‹˜ì˜ ì”ê³ ëŠ”"+this.nowMoney+"ì› ì…ë‹ˆë‹¤." );
 		}else {
-			System.out.println("Àß¸øµÈ ºñ¹Ğ¹øÈ£ ÀÔ´Ï´Ù.");
+			System.out.println("ì˜ëª»ëœ ë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤.");
 		}
 	}
 	
