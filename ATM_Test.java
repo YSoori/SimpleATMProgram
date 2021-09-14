@@ -1,5 +1,3 @@
-package C0901_Practice_Acc;
-
 import java.util.*;
 
 
@@ -12,7 +10,7 @@ public class ATM_Test {
 			check=true;
 		}
 		if(check==false) {
-			System.out.println("µî·ÏµÈ °èÁÂ°¡ ¾ø½À´Ï´Ù.");
+			System.out.println("ë“±ë¡ëœ ê³„ì¢Œê°€ ì—†ìŠµë‹ˆë‹¤.");
 		}
 	}
 	
@@ -35,24 +33,24 @@ public class ATM_Test {
 	
 		int but1 = 0;
 		
-		System.out.println("ATM ÇÁ·Î±×·¥À» ½ÇÇàÇÕ´Ï´Ù.");
+		System.out.println("ATM í”„ë¡œê·¸ë¨ì„ ì‹¤í–‰í•©ë‹ˆë‹¤.");
 		while(but1!=4) {
 			int but2 = 0;
-			System.out.println("1.°èÁÂ µî·Ï 2.¸ğµç °èÁÂ Á¶È¸ 3.·Î±×ÀÎ 4.Á¾·á");
+			System.out.println("1.ê³„ì¢Œ ë“±ë¡ 2.ëª¨ë“  ê³„ì¢Œ ì¡°íšŒ 3.ë¡œê·¸ì¸ 4.ì¢…ë£Œ");
 			but1 = sc.nextInt();
 			
 			switch(but1) {
 			case 1: 
-				System.out.println("¿¹±İÁÖ : "); name = sc.next();
-				System.out.println("°èÁÂ¹øÈ£ : "); acc = sc.next();
+				System.out.println("ì˜ˆê¸ˆì£¼ : "); name = sc.next();
+				System.out.println("ê³„ì¢Œë²ˆí˜¸ : "); acc = sc.next();
 				if(findAcc(account, cnt, acc)==null) {
-					System.out.println("ºñ¹Ğ¹øÈ£ : "); pw = sc.next();
-					System.out.println("ÀÔ±İÇÒ ±İ¾× : "); money = sc.nextInt();
+					System.out.println("ë¹„ë°€ë²ˆí˜¸ : "); pw = sc.next();
+					System.out.println("ì…ê¸ˆí•  ê¸ˆì•¡ : "); money = sc.nextInt();
 					account[cnt] = new Account(acc, name, pw, money);
-					System.out.println(account[cnt].name+"´ÔÀÇ °èÁÂ°¡ »ı¼ºµÇ¾ú½À´Ï´Ù.");
+					System.out.println(account[cnt].name+"ë‹˜ì˜ ê³„ì¢Œê°€ ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.");
 					cnt++;
 				}else {
-					System.out.println("ÀÌ¹Ì µî·ÏµÈ °èÁÂ¹øÈ£ÀÔ´Ï´Ù.");
+					System.out.println("ì´ë¯¸ ë“±ë¡ëœ ê³„ì¢Œë²ˆí˜¸ì…ë‹ˆë‹¤.");
 				}
 				break;
 			case 2:
@@ -60,64 +58,64 @@ public class ATM_Test {
 				break;
 			case 3:
 				if(account[0]==null) {
-					System.out.println("µî·ÏµÈ °èÁÂ°¡ ¾ø½À´Ï´Ù.");
+					System.out.println("ë“±ë¡ëœ ê³„ì¢Œê°€ ì—†ìŠµë‹ˆë‹¤.");
 				}else {
-					System.out.println("°èÁÂ¹øÈ£ : "); acc=sc.next();
+					System.out.println("ê³„ì¢Œë²ˆí˜¸ : "); acc=sc.next();
 					curr = findAcc(account, cnt, acc);
 					if(curr!=null) {
-						System.out.println(curr.name+"´Ô ¹İ°©½À´Ï´Ù.");
-						System.out.println("´ÙÀ½ È­¸éÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù.");
+						System.out.println(curr.name+"ë‹˜ ë°˜ê°‘ìŠµë‹ˆë‹¤.");
+						System.out.println("ë‹¤ìŒ í™”ë©´ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤.");
 						
 						while(but2!=5) {
-							System.out.println("1.Á¶È¸ 2.ÀÔ±İ 3.Ãâ±İ 4.¼Û±İ 5.·Î±×¾Æ¿ô");
+							System.out.println("1.ì¡°íšŒ 2.ì…ê¸ˆ 3.ì¶œê¸ˆ 4.ì†¡ê¸ˆ 5.ë¡œê·¸ì•„ì›ƒ");
 							but2=sc.nextInt();
 							
 							switch(but2) {
 							case 1:
-								System.out.println("ºñ¹Ğ¹øÈ£ : "); pw = sc.next();
+								System.out.println("ë¹„ë°€ë²ˆí˜¸ : "); pw = sc.next();
 								curr.showMoney(pw);
 								break;
 							case 2:
-								System.out.println("ÀÔ±İ¾× : "); money = sc.nextInt();
+								System.out.println("ì…ê¸ˆì•¡ : "); money = sc.nextInt();
 								curr.credit(money);
-								System.out.println(money+"¿ø ÀÔ±ŞµÇ¾ú½À´Ï´Ù.");
+								System.out.println(money+"ì› ì…ê¸‰ë˜ì—ˆìŠµë‹ˆë‹¤.");
 								break;
 							case 3:
-								System.out.println("ºñ¹Ğ¹øÈ£ : "); pw = sc.next();
-								System.out.println("Ãâ±İ¾× : "); money = sc.nextInt();
+								System.out.println("ë¹„ë°€ë²ˆí˜¸ : "); pw = sc.next();
+								System.out.println("ì¶œê¸ˆì•¡ : "); money = sc.nextInt();
 								
 								if(curr.debit(pw, money)!=0) {
-									System.out.println(money+"¿ø Ãâ±İµÇ¾ú½À´Ï´Ù.");
+									System.out.println(money+"ì› ì¶œê¸ˆë˜ì—ˆìŠµë‹ˆë‹¤.");
 								}
 								
 								break;
 							case 4: 
-								System.out.println("¼Û±İÇÒ °èÁÂ : "); sendA = sc.next();
-								System.out.println("¼Û±İ¾× : "); money = sc.nextInt();
-								System.out.println("ºñ¹Ğ¹øÈ£ : "); pw = sc.next();
+								System.out.println("ì†¡ê¸ˆí•  ê³„ì¢Œ : "); sendA = sc.next();
+								System.out.println("ì†¡ê¸ˆì•¡ : "); money = sc.nextInt();
+								System.out.println("ë¹„ë°€ë²ˆí˜¸ : "); pw = sc.next();
 								sendAcc = findAcc(account, cnt, sendA);
 								if(sendAcc!=null) {
 									curr.send(sendAcc, pw, money);
 								}
 								break;
 							case 5: 
-								System.out.println("Ã³À½ È­¸éÀ¸·Î µ¹¾Æ°©´Ï´Ù.");
+								System.out.println("ì²˜ìŒ í™”ë©´ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
 								break;
 							default:
-								System.out.println("¿Ã¹Ù¸¥ ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+								System.out.println("ì˜¬ë°”ë¥¸ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 								break;
 							}
 						}
 					}else {
-						System.out.println("µî·ÏµÇÁö ¾ÊÀº °èÁÂ¹øÈ£ÀÔ´Ï´Ù.");
+						System.out.println("ë“±ë¡ë˜ì§€ ì•Šì€ ê³„ì¢Œë²ˆí˜¸ì…ë‹ˆë‹¤.");
 					}
 				}
 				break;
 			case 4:
-				System.out.println("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù.");
+				System.out.println("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 				break;
 			default:
-				System.out.println("¿Ã¹Ù¸¥ ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				System.out.println("ì˜¬ë°”ë¥¸ ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				break;
 			
 			}
