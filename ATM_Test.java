@@ -4,25 +4,6 @@ import java.util.*;
 
 public class ATM_Test {
 	
-	static void showAcc(Account[] arr) {
-		for(int i=0;i<cnt;i++) {
-			System.out.println(arr[i].name + " " + arr[i].acc);
-		}
-	}
-	
-	static Account findAcc(Account[] arr, String acc) {
-		for(int i=0;i<cnt;i++) {
-			if(arr[i].acc.equals(acc)) {
-				return arr[i];
-			}
-		}
-		return null;
-	}
-	
-	static int cnt = 0;
-	
-	static Account[] account = new Account[100];
-	
 	static boolean readFile(String path) {
 		LineNumberReader reader = null;
 		try {
@@ -33,7 +14,8 @@ public class ATM_Test {
 					break;
 				}
 				String[] token = str.split(" ");
-				account[cnt++] = new Account(token[1], token[0], token[2], Integer.parseInt(token[3]));
+				
+				accMap.put(token[0], new Account(token[0], token[1], token[2], Integer.parseInt(token[3])));
 			}
 		} catch (FileNotFoundException fnfe) {
 			System.out.println("파일을 찾을 수 없습니다.");
@@ -53,8 +35,8 @@ public class ATM_Test {
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter(path);
-			for(int i=0;i<cnt;i++) {
-				writer.write(account[i].name+" "+account[i].acc+" "+account[i].pw+" "+account[i].nowMoney+"\n");
+			for(String a : accMap.keySet()) {
+				writer.write(a+" "+accMap.get(a).name+" "+accMap.get(a).pw+" "+accMap.get(a).nowMoney+"\n");
 			}
 		} catch (IOException e) {
 			System.out.println("파일을 출력할 수 없습니다.");
@@ -68,12 +50,11 @@ public class ATM_Test {
 		}
 	}
 	
+	static HashMap<String, Account> accMap = new HashMap<String, Account>();
 	
 	public static void main(String[] args) {
-		String acc, name, pw, sendA;
+		String name, acc, pw, sendA;
 		int nowMoney, money;
-		
-		Account curr = null, sendAcc = null;
 		
 		Scanner sc = new Scanner(System.in);
 	
@@ -90,28 +71,32 @@ public class ATM_Test {
 			case 1: 
 				System.out.println("예금주 : "); name = sc.next();
 				System.out.println("계좌번호 : "); acc = sc.next();
-				if(findAcc(account, acc)==null) {
+				
+				Account accCode = accMap.get(acc);
+				if(accCode==null) {
 					System.out.println("비밀번호 : "); pw = sc.next();
 					System.out.println("입금할 금액 : "); money = sc.nextInt();
-					account[cnt++] = new Account(acc, name, pw, money);
+					accMap.put(acc, new Account(acc, name, pw, money));
 					System.out.println(name+"님의 계좌가 생성되었습니다.");
-					writeFile("accList.txt");
+					
 				}else {
 					System.out.println("이미 등록된 계좌번호입니다.");
 				}
-				
+				writeFile("accList.txt");
 				break;
 			case 2:
-				showAcc(account);
+				for(String user : accMap.keySet()) {
+					System.out.println(accMap.get(user).name +" / "+user);
+				}
 				break;
 			case 3:
-				if(account[0]==null) {
+				if(accMap.isEmpty()) {
 					System.out.println("등록된 계좌가 없습니다.");
 				}else {
 					System.out.println("계좌번호 : "); acc=sc.next();
-					curr = findAcc(account, acc);
-					if(curr!=null) {
-						System.out.println(curr.name+"님 반갑습니다.");
+					accCode = accMap.get(acc);
+					if(accCode!=null) {
+						System.out.println(accCode.name+"님 반갑습니다.");
 						System.out.println("다음 화면으로 이동합니다.");
 						
 						while(but2!=5) {
@@ -122,12 +107,12 @@ public class ATM_Test {
 							
 							case 1:
 								System.out.println("비밀번호 : "); pw = sc.next();
-								curr.showMoney(pw);
+								accCode.showMoney(pw);
 								break;
 							
 							case 2:
 								System.out.println("입금액 : "); money = sc.nextInt();
-								curr.credit(money);
+								accCode.credit(money);
 								System.out.println(money+"원 입급되었습니다.");
 								writeFile("accList.txt");
 								break;
@@ -136,7 +121,7 @@ public class ATM_Test {
 								System.out.println("비밀번호 : "); pw = sc.next();
 								System.out.println("출금액 : "); money = sc.nextInt();
 								
-								if(curr.debit(pw, money)!=0) {
+								if(accCode.debit(pw, money)!=0) {
 									System.out.println(money+"원 출금되었습니다.");
 								}
 								writeFile("accList.txt");
@@ -146,9 +131,9 @@ public class ATM_Test {
 								System.out.println("송금할 계좌 : "); sendA = sc.next();
 								System.out.println("송금액 : "); money = sc.nextInt();
 								System.out.println("비밀번호 : "); pw = sc.next();
-								sendAcc = findAcc(account, sendA);
+								Account sendAcc = accMap.get(sendA);
 								if(sendAcc!=null) {
-									curr.send(sendAcc, pw, money);
+									accCode.send(sendAcc, pw, money);
 								}else {
 									System.out.println("등록되지 않은 계좌번호 입니다.");
 								}
